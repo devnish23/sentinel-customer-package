@@ -1,0 +1,8 @@
+portal/node_modules/
+portal/dist/
+config/sentinel.config
+scripts/portal.pid
+logs/
+*.log
+.DS_Store
+Thumbs.db
