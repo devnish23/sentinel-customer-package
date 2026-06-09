@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Collecting and Submitting a Support Bundle — Minifra KB</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0f172a;color:#e2e8f0;line-height:1.7}
+.header{background:#0f172a;border-bottom:1px solid #1e293b;padding:16px 40px;display:flex;align-items:center;gap:12px}
+.back{color:#22d3ee;text-decoration:none;font-size:13px}.logo{color:#f1f5f9;font-weight:700;font-size:16px;margin-left:8px}
+.main{max-width:760px;margin:0 auto;padding:48px 24px}
+.meta{display:flex;gap:10px;align-items:center;margin-bottom:32px;flex-wrap:wrap}
+.cat{background:#22d3ee15;border:1px solid #22d3ee30;color:#22d3ee;padding:3px 10px;border-radius:20px;font-size:12px}
+.kid{font-family:monospace;color:#475569;font-size:12px}
+h1{font-size:26px;font-weight:800;color:#f1f5f9;margin-bottom:10px}
+pre{background:#0f172a;border:1px solid #1e293b;border-radius:10px;padding:20px 24px;font-family:'Courier New',monospace;font-size:13px;color:#a5f3fc;line-height:1.8;overflow-x:auto;white-space:pre-wrap;margin:20px 0}
+.tags{display:flex;gap:6px;flex-wrap:wrap;margin-top:24px}
+.tag{background:#1e293b;border:1px solid #334155;color:#64748b;padding:3px 10px;border-radius:20px;font-size:11px}
+.nav{display:flex;justify-content:space-between;margin-top:40px;padding-top:24px;border-top:1px solid #1e293b}
+.nav a{color:#22d3ee;text-decoration:none;font-size:13px}
+footer{text-align:center;padding:32px;color:#334155;font-size:12px;border-top:1px solid #1e293b;margin-top:48px}
+</style>
+</head>
+<body>
+<div class="header">
+  <a href="../index.html" class="back">← Knowledge Base</a>
+  <span class="logo">Minifra Sentinel</span>
+</div>
+<div class="main">
+  <div class="meta">
+    <span class="cat">Support</span>
+    <span class="kid">kb-014</span>
+  </div>
+  <h1>Collecting and Submitting a Support Bundle</h1>
+  <pre>A support bundle contains all logs, config (sanitised), and diagnostics.
+
+Method 1 — Customer Portal (recommended)
+  Customer Portal → Packages → "Support Bundle Tool"
+  Download and run the tool. It collects:
+    - Hub logs (last 7 days)
+    - Agent logs from all online agents (last 7 days)
+    - Sanitised config (passwords/keys redacted)
+    - System info (Windows version, hardware, network)
+    - Health check results
+    - Recent audit log (last 500 entries)
+  Output: MinifraSupport-<timestamp>.zip
+
+Method 2 — Manual (when Portal is unreachable)
+  Run on the Hub machine (as Administrator):
+    cd "C:\Program Files\Minifra\Hub\tools"
+    .\collect-support-bundle.bat
+  Output in: C:\ProgramData\Minifra\SupportBundles\
+
+Submitting the bundle
+  Email: support@minifra.com
+  Subject: "Support Bundle — [Company Name] — [Brief description]"
+  Attach the .zip file (max 50 MB; upload to link provided if larger).
+  Include: your license ID, Hub version, description of issue.
+
+What NOT to include
+  - Do NOT include raw evidence/recording files — these are sensitive.
+  - The bundle tool automatically redacts API keys and passwords.</pre>
+  <div class="tags"><span class="tag">support</span><span class="tag">bundle</span><span class="tag">diagnostics</span><span class="tag">logs</span></div>
+  <div class="nav">
+    <a href="../index.html">← All Articles</a>
+    <a href="../../index.html">Documentation Home →</a>
+  </div>
+</div>
+<footer>Minifra Sentinel v3.0.1 · &copy; 2026 Minifra Pte Ltd</footer>
+</body></html>
