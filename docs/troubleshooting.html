@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Troubleshooting — Minifra Sentinel</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0f172a;color:#e2e8f0;line-height:1.7}
+  .header{background:#0f172a;border-bottom:1px solid #1e293b;padding:16px 40px;display:flex;align-items:center;gap:12px}
+  .back{color:#22d3ee;text-decoration:none;font-size:13px}.logo{color:#f1f5f9;font-weight:700;font-size:16px;margin-left:8px}
+  .main{max-width:820px;margin:0 auto;padding:48px 24px}
+  h1{font-size:30px;font-weight:800;color:#f1f5f9;margin-bottom:8px}
+  .meta{color:#475569;font-size:13px;margin-bottom:40px}
+  h2{font-size:17px;font-weight:700;color:#f87171;margin:32px 0 12px;padding-bottom:6px;border-bottom:1px solid #1e293b}
+  h3{font-size:13px;font-weight:600;color:#fcd34d;margin:16px 0 4px}
+  p,li{color:#94a3b8;font-size:14px;margin-bottom:6px}ul{padding-left:20px;margin-bottom:12px}
+  pre{background:#0f172a;border:1px solid #1e293b;border-radius:8px;padding:14px;font-family:'Courier New',monospace;font-size:12px;color:#a5f3fc;overflow-x:auto;margin:8px 0}
+  .issue{background:#1e293b;border:1px solid #334155;border-left:3px solid #f87171;border-radius:8px;padding:16px 20px;margin-bottom:12px}
+  .fix{color:#4ade80;font-size:13px;margin-top:4px}
+  .kb-link{color:#22d3ee;text-decoration:none;font-size:12px}
+  footer{text-align:center;padding:32px;color:#334155;font-size:12px;border-top:1px solid #1e293b;margin-top:48px}
+</style>
+</head>
+<body>
+<div class="header"><a href="index.html" class="back">← Back to Docs</a><span class="logo">Minifra Sentinel — Troubleshooting</span></div>
+<div class="main">
+  <h1>Troubleshooting Guide</h1>
+  <div class="meta">Version 3.0.1 · Updated 2026-06-01</div>
+
+  <h2>Installation Issues</h2>
+  <div class="issue"><strong>setup.bat fails: "Node.js not found"</strong><p class="fix">Install Node.js 20 LTS from nodejs.org, then re-run setup.bat. Make sure to check "Add to PATH" during installation.</p></div>
+  <div class="issue"><strong>npm install fails: ECONNREFUSED or ETIMEDOUT</strong><p class="fix">Your machine may require a proxy. Set: <code>set HTTP_PROXY=http://proxy:port</code> then re-run. Or download dependencies on an internet-connected machine and copy node_modules.</p></div>
+  <div class="issue"><strong>Build fails: TypeScript error</strong><p class="fix">Ensure Node.js is 20+. Run <code>node -v</code> to verify. If correct, delete <code>portal/node_modules</code> and re-run setup.</p></div>
+
+  <h2>Portal Won't Start</h2>
+  <div class="issue"><strong>Port 3000 already in use</strong><p class="fix">Re-run setup.bat/setup.sh and choose a different port, or kill the process using port 3000: <code>netstat -ano | findstr :3000</code> then <code>taskkill /PID [pid] /F</code></p></div>
+  <div class="issue"><strong>Blank white page after opening portal</strong><p class="fix">Open browser DevTools (F12) → Console. Common cause: API_BASE_URL is wrong. Re-run setup and verify the Hub URL is correct and reachable.</p></div>
+  <div class="issue"><strong>Portal shows "Failed to load dashboard"</strong><p class="fix">The Hub is not reachable. Check: (1) Hub service is running, (2) Hub URL in config matches exactly, (3) Firewall allows TCP 8080/8443, (4) No proxy intercepting the request.</p></div>
+
+  <h2>Agent Issues</h2>
+  <div class="issue"><strong>Agent shows OFFLINE</strong><p class="fix">Full checklist: <a href="kb/articles/kb-004.html" class="kb-link">KB-004 — Agent Offline Troubleshooting</a></p></div>
+  <div class="issue"><strong>Agent not appearing in portal after install</strong><p class="fix">Wait 60 seconds for first heartbeat. If still missing: check agent service is running (<code>sc query MinifraAgent</code>), verify Hub URL entered during agent install.</p></div>
+  <div class="issue"><strong>Antivirus quarantined minifra-agent.exe</strong><p class="fix">Full resolution steps: <a href="kb/articles/kb-006.html" class="kb-link">KB-006 — Antivirus Exclusions</a></p></div>
+
+  <h2>License Issues</h2>
+  <div class="issue"><strong>License shows EXPIRED</strong><p class="fix">Contact licensing@minifra.com with your License ID to renew. During the grace period (default 30 days), the system continues operating with a warning.</p></div>
+  <div class="issue"><strong>Offline activation fails: "Invalid activation blob"</strong><p class="fix">The blob may have been copied with line breaks. Paste it as a single unbroken string. If still failing, request a new blob from licensing@minifra.com.</p></div>
+  <div class="issue"><strong>License shows HARDWARE_MISMATCH</strong><p class="fix">The Hub machine was changed or re-imaged. Follow the hardware re-binding process: <a href="kb/articles/kb-008.html" class="kb-link">KB-008 — Hardware Binding Migration</a></p></div>
+
+  <h2>Recording Issues</h2>
+  <div class="issue"><strong>Recording status stays STOPPED despite policy</strong><p class="fix">Check: (1) Policy is APPROVED and assigned to the agent, (2) Agent has sufficient local storage, (3) captureMethod is not set to an invalid value — use "Auto".</p></div>
+  <div class="issue"><strong>Recording chunks show HASH_MISMATCH</strong><p class="fix">This may indicate tampering. Check Alerts for TAMPER events. If it's a false positive (e.g. after AV scan), acknowledge the alert and verify the recording was intact before the scan.</p></div>
+
+  <h2>Export Issues</h2>
+  <div class="issue"><strong>Export approval button greyed out</strong><p class="fix">You are logged in as the same user who created the request. Self-approval is blocked by policy. A different user with Reviewer role must approve.</p></div>
+  <div class="issue"><strong>Chain-of-custody verification fails</strong><p class="fix">One or more chunks may be corrupted. Check Vault for the original chunks. If hash mismatch is confirmed, the recording may have been tampered with — escalate to your Security team.</p></div>
+
+  <h2>Hub Issues</h2>
+  <div class="issue"><strong>Hub fails to start after reboot</strong><p class="fix">Full resolution steps: <a href="kb/articles/kb-009.html" class="kb-link">KB-009 — Hub Startup Failure</a></p></div>
+  <div class="issue"><strong>Hub log: "certificate verify failed"</strong><p class="fix">TLS cert has expired or the CA is not trusted. Renew/replace the cert and restart the MinifraHub service. For self-signed certs on agents, add the CA cert to Windows Trusted Root store.</p></div>
+
+  <h2>Still Stuck?</h2>
+  <p>Collect a support bundle and contact the support team:</p>
+  <ul>
+    <li>Email: <strong>support@minifra.com</strong></li>
+    <li>Include your License ID and Hub version (<code>http://localhost:8080/health</code>)</li>
+    <li>Attach the support bundle — see <a href="kb/articles/kb-014.html" class="kb-link">KB-014</a></li>
+  </ul>
+</div>
+<footer>Minifra Sentinel v3.0.1 · &copy; 2026 Minifra Pte Ltd · <a href="index.html" style="color:#334155">Documentation Home</a></footer>
+</body></html>
