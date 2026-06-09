@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Minifra Sentinel Agent — Deployment Guide — Minifra KB</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0f172a;color:#e2e8f0;line-height:1.7}
+.header{background:#0f172a;border-bottom:1px solid #1e293b;padding:16px 40px;display:flex;align-items:center;gap:12px}
+.back{color:#22d3ee;text-decoration:none;font-size:13px}.logo{color:#f1f5f9;font-weight:700;font-size:16px;margin-left:8px}
+.main{max-width:760px;margin:0 auto;padding:48px 24px}
+.meta{display:flex;gap:10px;align-items:center;margin-bottom:32px;flex-wrap:wrap}
+.cat{background:#22d3ee15;border:1px solid #22d3ee30;color:#22d3ee;padding:3px 10px;border-radius:20px;font-size:12px}
+.kid{font-family:monospace;color:#475569;font-size:12px}
+h1{font-size:26px;font-weight:800;color:#f1f5f9;margin-bottom:10px}
+pre{background:#0f172a;border:1px solid #1e293b;border-radius:10px;padding:20px 24px;font-family:'Courier New',monospace;font-size:13px;color:#a5f3fc;line-height:1.8;overflow-x:auto;white-space:pre-wrap;margin:20px 0}
+.tags{display:flex;gap:6px;flex-wrap:wrap;margin-top:24px}
+.tag{background:#1e293b;border:1px solid #334155;color:#64748b;padding:3px 10px;border-radius:20px;font-size:11px}
+.nav{display:flex;justify-content:space-between;margin-top:40px;padding-top:24px;border-top:1px solid #1e293b}
+.nav a{color:#22d3ee;text-decoration:none;font-size:13px}
+footer{text-align:center;padding:32px;color:#334155;font-size:12px;border-top:1px solid #1e293b;margin-top:48px}
+</style>
+</head>
+<body>
+<div class="header">
+  <a href="../index.html" class="back">← Knowledge Base</a>
+  <span class="logo">Minifra Sentinel</span>
+</div>
+<div class="main">
+  <div class="meta">
+    <span class="cat">Installation & Setup</span>
+    <span class="kid">kb-002</span>
+  </div>
+  <h1>Minifra Sentinel Agent — Deployment Guide</h1>
+  <pre>Prerequisites
+- Windows 10 / 11 / Server 2019+
+- 2 GB RAM minimum
+- 20 GB local storage for recordings
+- Hub must be running and reachable
+
+Step 1 — Run the agent installer
+  Execute MinifraAgent-Setup-3.0.1.exe as Administrator.
+  During install, enter the Hub URL when prompted:
+    Example: https://192.168.1.10:8080
+
+Step 2 — Generate hardware binding
+  After install, open the Customer Portal → Hardware Binding
+  Click "Generate Machine ID" — copy the hash shown.
+  Submit it to your Minifra contact to bind the license to this machine.
+
+Step 3 — Import the license
+  Go to Customer Portal → License Management
+  Click "Import License File" and upload the .lic file provided.
+  If offline, click "Activate Offline" and follow the challenge/response steps.
+
+Step 4 — Verify agent connection
+  In the Customer Portal → Agents, the new agent should appear within 60 seconds.
+  Status should show ONLINE.
+
+Silent / MSI deployment (enterprise)
+  MinifraAgent-Setup-3.0.1.exe /S /HUB_URL=https://192.168.1.10:8080 /SILENT</pre>
+  <div class="tags"><span class="tag">agent</span><span class="tag">install</span><span class="tag">deploy</span></div>
+  <div class="nav">
+    <a href="../index.html">← All Articles</a>
+    <a href="../../index.html">Documentation Home →</a>
+  </div>
+</div>
+<footer>Minifra Sentinel v3.0.1 · &copy; 2026 Minifra Pte Ltd</footer>
+</body></html>
