@@ -1,0 +1,32 @@
+# Minifra Sentinel Customer Portal v3.0.1 — File Checksums
+# Algorithm: SHA-256
+# Generated: 2026-06-01T00:00:00Z
+# Verify on Windows: certutil -hashfile <file> SHA256
+# Verify on Linux:   sha256sum <file>
+
+# Installer scripts
+setup.bat                                  [verify after download]
+setup.sh                                   [verify after download]
+uninstall.bat                              [verify after download]
+uninstall.sh                               [verify after download]
+
+# Portal source — key files
+portal/package.json                        [verify after download]
+portal/src/App.tsx                         [verify after download]
+portal/src/main.tsx                        [verify after download]
+
+# Documentation
+docs/index.html                            [verify after download]
+docs/quick-start.html                      [verify after download]
+docs/installation-guide.html               [verify after download]
+docs/configuration-guide.html              [verify after download]
+docs/troubleshooting.html                  [verify after download]
+docs/api-contract.html                     [verify after download]
+docs/kb/index.html                         [verify after download]
+
+# Config template
+config/sentinel.config.example             [verify after download]
+
+NOTE: Checksums are populated by the Minifra build system at release time.
+      Contact support@minifra.com if you need pre-computed checksums for
+      your specific download (provide your License ID and download timestamp).
