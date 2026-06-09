@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Recording Engine — Capture Methods Explained — Minifra KB</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0f172a;color:#e2e8f0;line-height:1.7}
+.header{background:#0f172a;border-bottom:1px solid #1e293b;padding:16px 40px;display:flex;align-items:center;gap:12px}
+.back{color:#22d3ee;text-decoration:none;font-size:13px}.logo{color:#f1f5f9;font-weight:700;font-size:16px;margin-left:8px}
+.main{max-width:760px;margin:0 auto;padding:48px 24px}
+.meta{display:flex;gap:10px;align-items:center;margin-bottom:32px;flex-wrap:wrap}
+.cat{background:#22d3ee15;border:1px solid #22d3ee30;color:#22d3ee;padding:3px 10px;border-radius:20px;font-size:12px}
+.kid{font-family:monospace;color:#475569;font-size:12px}
+h1{font-size:26px;font-weight:800;color:#f1f5f9;margin-bottom:10px}
+pre{background:#0f172a;border:1px solid #1e293b;border-radius:10px;padding:20px 24px;font-family:'Courier New',monospace;font-size:13px;color:#a5f3fc;line-height:1.8;overflow-x:auto;white-space:pre-wrap;margin:20px 0}
+.tags{display:flex;gap:6px;flex-wrap:wrap;margin-top:24px}
+.tag{background:#1e293b;border:1px solid #334155;color:#64748b;padding:3px 10px;border-radius:20px;font-size:11px}
+.nav{display:flex;justify-content:space-between;margin-top:40px;padding-top:24px;border-top:1px solid #1e293b}
+.nav a{color:#22d3ee;text-decoration:none;font-size:13px}
+footer{text-align:center;padding:32px;color:#334155;font-size:12px;border-top:1px solid #1e293b;margin-top:48px}
+</style>
+</head>
+<body>
+<div class="header">
+  <a href="../index.html" class="back">← Knowledge Base</a>
+  <span class="logo">Minifra Sentinel</span>
+</div>
+<div class="main">
+  <div class="meta">
+    <span class="cat">Agents & Recording</span>
+    <span class="kid">kb-005</span>
+  </div>
+  <h1>Recording Engine — Capture Methods Explained</h1>
+  <pre>Minifra Sentinel uses a layered capture architecture on Windows.
+
+Primary: Windows Desktop Duplication API (DXGI)
+  - Hardware-accelerated, lowest CPU usage
+  - Captures all windows including DRM-protected video
+  - Requires: GPU with DXGI support, Windows 8+
+  - Config: captureMethod = "Desktop Duplication API"
+
+Fallback 1: Windows Graphics Capture API (WGC)
+  - Software-based, works on all GPUs
+  - Slightly higher CPU, slightly lower fidelity
+  - Automatically used if DXGI is unavailable
+  - Config: captureMethod = "Windows Graphics Capture"
+
+Fallback 2: MSS Screenshot Loop
+  - Pure software, works everywhere
+  - Highest CPU usage, lowest latency
+  - Used in Citrix/RDP/VM environments where GPU APIs are blocked
+
+OpenCV — NOT a capture engine
+  OpenCV is used ONLY for post-processing (compression, motion detection,
+  watermarking). It does NOT capture the screen.
+  Warning: Do not set captureMethod = "OpenCV" — this is not a valid mode.
+
+Recommended settings (Customer Portal → Configuration → Recording Config)
+  FPS: 5 (default) — increase to 10 for compliance recording
+  Resolution: 1280x720 (recommended), 1920x1080 (compliance/legal)
+  Chunk Duration: 30s (default)
+  Capture Method: Auto (let Sentinel choose the best available)</pre>
+  <div class="tags"><span class="tag">recording</span><span class="tag">dxgi</span><span class="tag">opencv</span><span class="tag">capture</span><span class="tag">engine</span></div>
+  <div class="nav">
+    <a href="../index.html">← All Articles</a>
+    <a href="../../index.html">Documentation Home →</a>
+  </div>
+</div>
+<footer>Minifra Sentinel v3.0.1 · &copy; 2026 Minifra Pte Ltd</footer>
+</body></html>
