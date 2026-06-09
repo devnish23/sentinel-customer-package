@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quick Start — Minifra Sentinel</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0f172a;color:#e2e8f0;line-height:1.7}
+  .header{background:#0f172a;border-bottom:1px solid #1e293b;padding:16px 40px;display:flex;align-items:center;gap:12px}
+  .back{color:#22d3ee;text-decoration:none;font-size:13px}
+  .logo{color:#f1f5f9;font-weight:700;font-size:16px;margin-left:8px}
+  .main{max-width:800px;margin:0 auto;padding:48px 24px}
+  h1{font-size:32px;font-weight:800;color:#f1f5f9;margin-bottom:8px}
+  .meta{color:#475569;font-size:13px;margin-bottom:40px}
+  h2{font-size:18px;font-weight:700;color:#22d3ee;margin:36px 0 12px;padding-bottom:8px;border-bottom:1px solid #1e293b}
+  h3{font-size:15px;font-weight:600;color:#f1f5f9;margin:20px 0 8px}
+  p{color:#94a3b8;margin-bottom:12px;font-size:14px}
+  pre{background:#0f172a;border:1px solid #1e293b;border-radius:8px;padding:16px;font-family:'Courier New',monospace;font-size:13px;color:#a5f3fc;overflow-x:auto;margin:12px 0}
+  .step{display:flex;gap:16px;margin-bottom:24px;align-items:flex-start}
+  .step-num{background:#22d3ee15;border:1px solid #22d3ee30;color:#22d3ee;width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px;flex-shrink:0;margin-top:2px}
+  .step-body h3{margin-top:0}
+  .tip{background:#22d3ee08;border:1px solid #22d3ee20;border-radius:8px;padding:12px 16px;margin:16px 0;font-size:13px;color:#7dd3fc}
+  .warn{background:#f59e0b08;border:1px solid #f59e0b20;border-radius:8px;padding:12px 16px;margin:16px 0;font-size:13px;color:#fcd34d}
+  .time-badge{display:inline-block;background:#22d3ee15;border:1px solid #22d3ee30;color:#22d3ee;padding:4px 12px;border-radius:20px;font-size:12px;font-weight:600;margin-bottom:24px}
+  footer{text-align:center;padding:32px;color:#334155;font-size:12px;border-top:1px solid #1e293b;margin-top:48px}
+</style>
+</head>
+<body>
+<div class="header">
+  <a href="index.html" class="back">← Back to Docs</a>
+  <span class="logo">Minifra Sentinel — Quick Start</span>
+</div>
+<div class="main">
+  <h1>Quick Start Guide</h1>
+  <div class="meta">Version 3.0.1 · Updated 2026-06-01</div>
+  <div class="time-badge">⏱ ~30 minutes total</div>
+
+  <p>This guide gets you from zero to a fully operational Minifra Sentinel deployment. You will install the Hub, register one Agent, activate your license, and access the Customer Portal.</p>
+
+  <h2>Prerequisites</h2>
+  <p>Before you begin, ensure you have:</p>
+  <ul style="color:#94a3b8;font-size:14px;padding-left:20px;margin-bottom:16px">
+    <li>A Windows Server 2019+ (or Windows 10/11) machine for the Hub — minimum 8 GB RAM, 100 GB disk</li>
+    <li>One or more Windows 10/11 machines for Agents — minimum 4 GB RAM, 20 GB disk</li>
+    <li>Your Minifra license file (.lic) — provided by your Minifra contact</li>
+    <li>Node.js 20 LTS installed on the machine where you run this package</li>
+    <li>Firewall access: TCP 8080 (or 8443) open between Agents and Hub</li>
+  </ul>
+
+  <h2>Step 1 — Install the Hub</h2>
+  <div class="step">
+    <div class="step-num">1</div>
+    <div class="step-body">
+      <h3>Download Hub Installer from Customer Portal → Packages</h3>
+      <p>File: <code style="color:#a5f3fc">MinifraHub-Setup-3.0.1.exe</code> — run as Administrator on your Hub machine.</p>
+      <pre>MinifraHub-Setup-3.0.1.exe /DIR="C:\Program Files\Minifra\Hub"</pre>
+      <p>The installer registers <strong>MinifraHub</strong> as a Windows Service and starts it automatically.</p>
+    </div>
+  </div>
+  <div class="step">
+    <div class="step-num">2</div>
+    <div class="step-body">
+      <h3>Verify Hub is running</h3>
+      <pre>curl http://localhost:8080/health</pre>
+      <p>Expected: <code style="color:#86efac">{"status":"HEALTHY","version":"3.0.1"}</code></p>
+    </div>
+  </div>
+
+  <h2>Step 2 — Install the Customer Portal</h2>
+  <div class="step">
+    <div class="step-num">3</div>
+    <div class="step-body">
+      <h3>Run the installer (Windows)</h3>
+      <pre>setup.bat</pre>
+      <p>When prompted, enter your Hub API URL (e.g. <code style="color:#a5f3fc">http://192.168.1.10:8080/api/sentinel</code>). The script builds the portal and sets it up as a Windows Scheduled Task that auto-starts on boot.</p>
+    </div>
+  </div>
+  <div class="step">
+    <div class="step-num">4</div>
+    <div class="step-body">
+      <h3>Run the installer (Linux)</h3>
+      <pre>chmod +x setup.sh && sudo ./setup.sh</pre>
+      <p>Running as root installs a <strong>systemd</strong> service. Without root it starts in the background with nohup.</p>
+    </div>
+  </div>
+  <div class="step">
+    <div class="step-num">5</div>
+    <div class="step-body">
+      <h3>Open the Customer Portal</h3>
+      <p>Browse to <code style="color:#a5f3fc">http://localhost:3000</code> (or the port you chose). You should see the Minifra Sentinel Customer Portal dashboard.</p>
+    </div>
+  </div>
+
+  <h2>Step 3 — Activate Your License</h2>
+  <div class="step">
+    <div class="step-num">6</div>
+    <div class="step-body">
+      <h3>Generate Machine ID (for hardware binding)</h3>
+      <p>Customer Portal → <strong>Hardware Binding</strong> → click <strong>Generate Machine ID</strong>. Copy the hash shown.</p>
+    </div>
+  </div>
+  <div class="step">
+    <div class="step-num">7</div>
+    <div class="step-body">
+      <h3>Import your license file</h3>
+      <p>Customer Portal → <strong>License Management</strong> → <strong>Import License File</strong> → select your .lic file.</p>
+      <div class="tip">📋 Air-gapped / offline? Click "Activate Offline" instead. See <a href="kb/articles/kb-003.html" style="color:#22d3ee">KB-003</a> for the challenge/response steps.</div>
+    </div>
+  </div>
+
+  <h2>Step 4 — Deploy Your First Agent</h2>
+  <div class="step">
+    <div class="step-num">8</div>
+    <div class="step-body">
+      <h3>Download Agent Installer</h3>
+      <p>Customer Portal → <strong>Packages</strong> → <strong>Minifra Agent Installer v3.0.1</strong> → Download.</p>
+      <pre>MinifraAgent-Setup-3.0.1.exe /HUB_URL=http://192.168.1.10:8080</pre>
+    </div>
+  </div>
+  <div class="step">
+    <div class="step-num">9</div>
+    <div class="step-body">
+      <h3>Verify agent appears in portal</h3>
+      <p>Customer Portal → <strong>Agents</strong>. Within 60 seconds the new agent should appear with status <strong>ONLINE</strong>.</p>
+      <div class="warn">⚠ Agent still offline after 60s? Check firewall (TCP 8080) and agent logs. See <a href="kb/articles/kb-004.html" style="color:#fcd34d">KB-004</a>.</div>
+    </div>
+  </div>
+
+  <h2>Step 5 — Configure and Run a Health Check</h2>
+  <div class="step">
+    <div class="step-num">10</div>
+    <div class="step-body">
+      <h3>Run full health check</h3>
+      <p>Customer Portal → <strong>Health Check</strong> → <strong>Run All Checks</strong>. All items should show <strong>PASS</strong>.</p>
+    </div>
+  </div>
+
+  <h2>You're Live</h2>
+  <p>Agents are recording, evidence is flowing to the Vault, and the Customer Portal is operational. Next steps:</p>
+  <ul style="color:#94a3b8;font-size:14px;padding-left:20px;margin-top:8px">
+    <li>Create recording <strong>Policies</strong> (Customer Portal → Policies)</li>
+    <li>Set up <strong>Alerts</strong> and SMTP notifications (Configuration → Alert Config)</li>
+    <li>Add <strong>RBAC users</strong> with appropriate roles (Admin / RBAC)</li>
+    <li>Read the <a href="configuration-guide.html" style="color:#22d3ee">Configuration Guide</a> for advanced settings</li>
+  </ul>
+</div>
+<footer>Minifra Sentinel v3.0.1 · &copy; 2026 Minifra Pte Ltd · <a href="index.html" style="color:#334155">Documentation Home</a></footer>
+</body></html>
