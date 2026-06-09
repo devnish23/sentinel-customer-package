@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Installation Guide — Minifra Sentinel</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0f172a;color:#e2e8f0;line-height:1.7}
+  .header{background:#0f172a;border-bottom:1px solid #1e293b;padding:16px 40px;display:flex;align-items:center;gap:12px}
+  .back{color:#22d3ee;text-decoration:none;font-size:13px}.logo{color:#f1f5f9;font-weight:700;font-size:16px;margin-left:8px}
+  .main{max-width:820px;margin:0 auto;padding:48px 24px}
+  h1{font-size:30px;font-weight:800;color:#f1f5f9;margin-bottom:8px}
+  .meta{color:#475569;font-size:13px;margin-bottom:40px}
+  h2{font-size:18px;font-weight:700;color:#22d3ee;margin:36px 0 12px;padding-bottom:8px;border-bottom:1px solid #1e293b}
+  h3{font-size:14px;font-weight:600;color:#f1f5f9;margin:18px 0 6px}
+  p,li{color:#94a3b8;font-size:14px;margin-bottom:8px}
+  ul,ol{padding-left:20px;margin-bottom:16px}
+  pre{background:#0f172a;border:1px solid #1e293b;border-radius:8px;padding:16px;font-family:'Courier New',monospace;font-size:12px;color:#a5f3fc;overflow-x:auto;margin:10px 0}
+  table{width:100%;border-collapse:collapse;margin:16px 0;font-size:13px}
+  th{background:#1e293b;color:#94a3b8;font-weight:600;padding:8px 12px;text-align:left;border:1px solid #334155}
+  td{padding:8px 12px;border:1px solid #1e293b;color:#94a3b8}
+  tr:nth-child(even) td{background:#1e293b20}
+  .tip{background:#22d3ee08;border:1px solid #22d3ee20;border-radius:8px;padding:12px 16px;font-size:13px;color:#7dd3fc;margin:12px 0}
+  footer{text-align:center;padding:32px;color:#334155;font-size:12px;border-top:1px solid #1e293b;margin-top:48px}
+</style>
+</head>
+<body>
+<div class="header"><a href="index.html" class="back">← Back to Docs</a><span class="logo">Minifra Sentinel — Installation Guide</span></div>
+<div class="main">
+  <h1>Installation Guide</h1>
+  <div class="meta">Version 3.0.1 · Updated 2026-06-01</div>
+
+  <h2>System Requirements</h2>
+  <table>
+    <tr><th>Component</th><th>Minimum</th><th>Recommended</th><th>OS</th></tr>
+    <tr><td>Hub</td><td>4 GB RAM, 50 GB disk</td><td>8 GB RAM, 500 GB disk</td><td>Windows Server 2019+</td></tr>
+    <tr><td>Agent</td><td>2 GB RAM, 20 GB disk</td><td>4 GB RAM, 100 GB disk</td><td>Windows 10/11, Server 2019+</td></tr>
+    <tr><td>Customer Portal</td><td>Node.js 20 LTS (setup only)</td><td>Dedicated machine</td><td>Windows / Linux / macOS</td></tr>
+  </table>
+
+  <h2>Package Contents</h2>
+  <ul>
+    <li><strong>setup.bat</strong> — Windows installer (run as Administrator)</li>
+    <li><strong>setup.sh</strong> — Linux/macOS installer</li>
+    <li><strong>uninstall.bat / uninstall.sh</strong> — Uninstall scripts</li>
+    <li><strong>portal/</strong> — Customer Portal React source + build system</li>
+    <li><strong>docs/</strong> — Full offline documentation (HTML)</li>
+    <li><strong>docs/kb/</strong> — 14 KB articles (searchable offline)</li>
+    <li><strong>config/sentinel.config.example</strong> — Configuration template</li>
+    <li><strong>RELEASE_NOTES.txt</strong> — What's new in v3.0.1</li>
+  </ul>
+
+  <h2>Windows Installation</h2>
+  <h3>Step 1 — Prerequisites</h3>
+  <p>Install <a href="https://nodejs.org/en/download/" style="color:#22d3ee">Node.js 20 LTS</a> on the machine where you will run the Customer Portal.</p>
+  <pre>node -v   # should output v20.x.x or later
+npm -v    # should output 10.x or later</pre>
+
+  <h3>Step 2 — Run the installer</h3>
+  <pre>Right-click setup.bat → Run as Administrator</pre>
+  <p>The script will prompt you for:</p>
+  <ul>
+    <li><strong>Hub API URL</strong> — e.g. <code>https://192.168.1.10:8443/api/sentinel</code></li>
+    <li><strong>Portal port</strong> — default 3000</li>
+    <li><strong>Company name</strong> — shown in portal header</li>
+    <li><strong>Service install</strong> — auto-start on boot (recommended: Yes)</li>
+  </ul>
+
+  <h3>Step 3 — Verify</h3>
+  <pre>http://localhost:3000   # Customer Portal should load</pre>
+
+  <h2>Linux Installation</h2>
+  <pre>chmod +x setup.sh
+sudo ./setup.sh          # with root: installs systemd service
+./setup.sh               # without root: starts with nohup</pre>
+  <div class="tip">Tip: Run as root to install as a systemd service that auto-starts on reboot.</div>
+  <h3>Manage the service</h3>
+  <pre>sudo systemctl status  minifra-customer-portal
+sudo systemctl restart minifra-customer-portal
+sudo systemctl stop    minifra-customer-portal</pre>
+
+  <h2>Reconfiguring</h2>
+  <p>Run <code>setup.bat</code> (or <code>setup.sh</code>) again at any time. When prompted "Re-configure? (y/N)" answer <code>y</code> to change the Hub URL, port, or company name. The portal will be rebuilt and restarted.</p>
+
+  <h2>Uninstalling</h2>
+  <pre>uninstall.bat    # Windows
+./uninstall.sh   # Linux</pre>
+  <p>Source files in <code>portal/src/</code> are preserved. Only the build artefacts and service registration are removed.</p>
+
+  <h2>Proxy / Network Notes</h2>
+  <ul>
+    <li>If your network requires a proxy, set <code>HTTP_PROXY</code> / <code>HTTPS_PROXY</code> env vars before running setup.</li>
+    <li>If Hub uses a self-signed TLS certificate, you may need to set <code>NODE_TLS_REJECT_UNAUTHORIZED=0</code> — see <code>config/sentinel.config.example</code>.</li>
+    <li>The portal proxies all <code>/api/</code> requests to the Hub URL — no CORS configuration needed on the Hub.</li>
+  </ul>
+</div>
+<footer>Minifra Sentinel v3.0.1 · &copy; 2026 Minifra Pte Ltd · <a href="index.html" style="color:#334155">Documentation Home</a></footer>
+</body></html>
