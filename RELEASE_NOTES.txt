@@ -1,0 +1,68 @@
+═══════════════════════════════════════════════════════════════════
+  MINIFRA SENTINEL — Customer Portal Package  v3.0.1
+  Release Date: 2026-06-01
+  Build: sentinel-customer-portal-3.0.1-release
+═══════════════════════════════════════════════════════════════════
+
+WHAT'S INCLUDED
+  • Customer Portal web application (React + Vite)
+  • 17 pages: Dashboard, Agents, Recordings, Alerts, Policies,
+    Configuration (15 tabs), License, Hardware Binding,
+    License Migration, Vault/Evidence, Export Requests,
+    Chain of Custody, Audit Logs, Health Check, Packages,
+    Admin/RBAC, Knowledge Base
+  • Windows installer:  setup.bat
+  • Linux installer:    setup.sh
+  • Uninstallers:       uninstall.bat / uninstall.sh
+  • 14 KB articles (full text, searchable in-portal)
+  • HTML documentation: Installation, Quick Start,
+    Configuration, Troubleshooting, API Contract
+  • Config template:    config/sentinel.config.example
+
+WHAT'S NEW IN v3.0.1
+  + Recording Engine: Desktop Duplication API (DXGI) now default
+    primary capture method; OpenCV correctly scoped to processing only
+  + Hardware Binding: machine ID generation now includes TPM fingerprint
+    on supported hardware
+  + Export Workflow: self-approval prevention now enforced at API level
+    (was UI-only in v3.0.0)
+  + License: offline activation blob format updated (v2 blob — longer
+    validity, supports dual-hub deployments)
+  + Chain of Custody: SHA-256 verification now includes timestamp binding
+  + Health Check: new "Recording Engine" and "Vault Encryption" checks
+  + KB: 14 new knowledge base articles included in this package
+  + Portal: Knowledge Base page now bundled offline — no internet required
+
+FIXED IN v3.0.1
+  • Agent list occasionally showed stale heartbeat times after page reload
+  • Export approval email not sent when SMTP port was non-standard
+  • License migration status did not refresh automatically after approval
+  • Configuration tabs 7–15 not saving when accessed via direct URL
+  • Vault page: evidence list pagination broke on >50 items
+
+KNOWN ISSUES / LIMITATIONS
+  • Air-gap mode: KB article search is local only; no cloud sync in this build
+  • Recordings page: video playback requires browser with H.264 support
+  • IE/Edge Legacy not supported; use Edge (Chromium), Chrome, or Firefox
+
+SYSTEM REQUIREMENTS
+  Node.js 20 LTS or later (required for setup only; not needed at runtime)
+  Windows 10/11 / Windows Server 2019+ — OR — Ubuntu 20.04+, RHEL 8+, macOS 13+
+  Modern browser: Chrome 115+, Edge 115+, Firefox 115+
+  Minifra Sentinel Hub: v3.0.0 or v3.0.1
+  Network: Portal must be able to reach Hub API endpoint
+
+CHECKSUMS (SHA-256)
+  See checksums.txt for file integrity verification.
+
+SUPPORT
+  Email:   support@minifra.com
+  Portal:  https://portal.minifra.com
+  Docs:    https://docs.minifra.com
+  Emergency: +65 6XXX XXXX (24×7 for P1/P2)
+
+LICENSE
+  This software is licensed to the purchasing organisation only.
+  Redistribution is prohibited. See your license agreement.
+  License ID is required for installation activation.
+═══════════════════════════════════════════════════════════════════
