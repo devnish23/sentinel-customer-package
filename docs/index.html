@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Minifra Sentinel — Customer Documentation</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0f172a;color:#e2e8f0;line-height:1.6}
+  .header{background:#0f172a;border-bottom:1px solid #1e293b;padding:20px 40px;display:flex;align-items:center;gap:16px}
+  .logo{color:#22d3ee;font-size:22px;font-weight:800;letter-spacing:-0.5px}
+  .logo span{color:#94a3b8;font-size:11px;font-weight:400;display:block;letter-spacing:2px;text-transform:uppercase}
+  .badge{background:#22d3ee15;border:1px solid #22d3ee30;color:#22d3ee;padding:3px 10px;border-radius:20px;font-size:12px;margin-left:auto}
+  .main{max-width:900px;margin:0 auto;padding:48px 24px}
+  h1{font-size:28px;font-weight:700;color:#f1f5f9;margin-bottom:8px}
+  .subtitle{color:#64748b;margin-bottom:40px;font-size:15px}
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px;margin-bottom:48px}
+  .card{background:#1e293b;border:1px solid #334155;border-radius:12px;padding:24px;text-decoration:none;display:block;transition:border-color .15s,background .15s}
+  .card:hover{border-color:#22d3ee50;background:#1e293bcc}
+  .card-icon{font-size:24px;margin-bottom:12px}
+  .card h3{color:#f1f5f9;font-size:15px;font-weight:600;margin-bottom:6px}
+  .card p{color:#64748b;font-size:13px}
+  .section-title{font-size:13px;text-transform:uppercase;letter-spacing:1.5px;color:#475569;font-weight:600;margin-bottom:16px;padding-bottom:8px;border-bottom:1px solid #1e293b}
+  .kb-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px;margin-bottom:40px}
+  .kb-card{background:#1e293b;border:1px solid #334155;border-radius:8px;padding:14px;text-decoration:none;display:block;transition:border-color .15s}
+  .kb-card:hover{border-color:#22d3ee40}
+  .kb-cat{font-size:10px;text-transform:uppercase;letter-spacing:1px;color:#22d3ee;margin-bottom:4px}
+  .kb-card h4{color:#e2e8f0;font-size:13px;font-weight:500;line-height:1.4}
+  .kb-id{font-size:10px;color:#475569;margin-top:4px;font-family:monospace}
+  footer{text-align:center;padding:32px;color:#334155;font-size:12px;border-top:1px solid #1e293b;margin-top:48px}
+</style>
+</head>
+<body>
+<div class="header">
+  <div>
+    <div class="logo">MINIFRA <span>Sentinel Platform</span></div>
+  </div>
+  <div class="badge">v3.0.1 — Customer Package</div>
+</div>
+<div class="main">
+  <h1>Customer Documentation</h1>
+  <p class="subtitle">Everything you need to install, configure, and operate Minifra Sentinel.</p>
+
+  <div class="section-title">Getting Started</div>
+  <div class="grid">
+    <a href="quick-start.html" class="card">
+      <div class="card-icon">⚡</div>
+      <h3>Quick Start Guide</h3>
+      <p>Install Hub + Agent + Portal in under 30 minutes. Recommended first read.</p>
+    </a>
+    <a href="installation-guide.html" class="card">
+      <div class="card-icon">📦</div>
+      <h3>Installation Guide</h3>
+      <p>Full step-by-step installation for Hub, Agent, and Customer Portal on Windows &amp; Linux.</p>
+    </a>
+    <a href="configuration-guide.html" class="card">
+      <div class="card-icon">⚙️</div>
+      <h3>Configuration Guide</h3>
+      <p>Configure Hub, Agents, Vault, Recording Engine, Alerts, and all 15 configuration tabs.</p>
+    </a>
+    <a href="troubleshooting.html" class="card">
+      <div class="card-icon">🔧</div>
+      <h3>Troubleshooting</h3>
+      <p>Common issues and solutions: agents offline, license errors, recording failures, and more.</p>
+    </a>
+    <a href="api-contract.html" class="card">
+      <div class="card-icon">🔌</div>
+      <h3>API Contract</h3>
+      <p>Full REST API reference for all 32 customer endpoints. Use to integrate your backend.</p>
+    </a>
+    <a href="kb/index.html" class="card">
+      <div class="card-icon">📚</div>
+      <h3>Knowledge Base</h3>
+      <p>14 articles covering installation, troubleshooting, security, upgrades, and exports.</p>
+    </a>
+  </div>
+
+  <div class="section-title">Knowledge Base — All Articles</div>
+  <div class="kb-grid">
+    <a href="kb/articles/kb-001.html" class="kb-card"><div class="kb-cat">Installation</div><h4>Hub Installation Guide (Windows Server)</h4><div class="kb-id">KB-001</div></a>
+    <a href="kb/articles/kb-002.html" class="kb-card"><div class="kb-cat">Installation</div><h4>Agent Deployment Guide</h4><div class="kb-id">KB-002</div></a>
+    <a href="kb/articles/kb-003.html" class="kb-card"><div class="kb-cat">License</div><h4>Offline License Activation</h4><div class="kb-id">KB-003</div></a>
+    <a href="kb/articles/kb-004.html" class="kb-card"><div class="kb-cat">Troubleshooting</div><h4>Agent Offline — Checklist</h4><div class="kb-id">KB-004</div></a>
+    <a href="kb/articles/kb-005.html" class="kb-card"><div class="kb-cat">Recording</div><h4>Capture Methods Explained</h4><div class="kb-id">KB-005</div></a>
+    <a href="kb/articles/kb-006.html" class="kb-card"><div class="kb-cat">Troubleshooting</div><h4>K7 / Antivirus Blocking Agent</h4><div class="kb-id">KB-006</div></a>
+    <a href="kb/articles/kb-007.html" class="kb-card"><div class="kb-cat">Evidence</div><h4>Export Workflow End-to-End</h4><div class="kb-id">KB-007</div></a>
+    <a href="kb/articles/kb-008.html" class="kb-card"><div class="kb-cat">License</div><h4>Hardware Binding Migration</h4><div class="kb-id">KB-008</div></a>
+    <a href="kb/articles/kb-009.html" class="kb-card"><div class="kb-cat">Troubleshooting</div><h4>Hub Fails After Reboot</h4><div class="kb-id">KB-009</div></a>
+    <a href="kb/articles/kb-010.html" class="kb-card"><div class="kb-cat">Network</div><h4>Port / Firewall Configuration</h4><div class="kb-id">KB-010</div></a>
+    <a href="kb/articles/kb-011.html" class="kb-card"><div class="kb-cat">Upgrade</div><h4>Upgrading to v3.0.1</h4><div class="kb-id">KB-011</div></a>
+    <a href="kb/articles/kb-012.html" class="kb-card"><div class="kb-cat">Security</div><h4>Tamper Detection Alerts</h4><div class="kb-id">KB-012</div></a>
+    <a href="kb/articles/kb-013.html" class="kb-card"><div class="kb-cat">Compliance</div><h4>Two-Person Export Approval</h4><div class="kb-id">KB-013</div></a>
+    <a href="kb/articles/kb-014.html" class="kb-card"><div class="kb-cat">Support</div><h4>Collecting Support Bundle</h4><div class="kb-id">KB-014</div></a>
+  </div>
+</div>
+<footer>Minifra Sentinel v3.0.1 · &copy; 2026 Minifra Pte Ltd · support@minifra.com</footer>
+</body></html>
