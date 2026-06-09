@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>API Contract — Minifra Sentinel</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0f172a;color:#e2e8f0;line-height:1.6}
+  .header{background:#0f172a;border-bottom:1px solid #1e293b;padding:16px 40px;display:flex;align-items:center;gap:12px}
+  .back{color:#22d3ee;text-decoration:none;font-size:13px}.logo{color:#f1f5f9;font-weight:700;font-size:16px;margin-left:8px}
+  .main{max-width:900px;margin:0 auto;padding:48px 24px}
+  h1{font-size:28px;font-weight:800;color:#f1f5f9;margin-bottom:8px}
+  .meta{color:#475569;font-size:13px;margin-bottom:32px}
+  h2{font-size:16px;font-weight:700;color:#22d3ee;margin:32px 0 12px;padding-bottom:6px;border-bottom:1px solid #1e293b}
+  .endpoint{background:#1e293b;border:1px solid #334155;border-radius:8px;margin-bottom:10px;overflow:hidden}
+  .ep-header{display:flex;align-items:center;gap:10px;padding:10px 16px;cursor:pointer;user-select:none}
+  .method{font-size:11px;font-weight:700;padding:2px 8px;border-radius:4px;font-family:monospace;min-width:44px;text-align:center}
+  .GET{background:#0284c715;color:#38bdf8;border:1px solid #0284c730}
+  .POST{background:#16a34a15;color:#4ade80;border:1px solid #16a34a30}
+  .ep-path{font-family:monospace;font-size:13px;color:#e2e8f0}
+  .ep-desc{font-size:12px;color:#64748b;margin-left:auto}
+  .ep-body{padding:12px 16px;border-top:1px solid #334155;background:#0f172a50}
+  pre{font-family:'Courier New',monospace;font-size:12px;color:#a5f3fc;margin:6px 0;white-space:pre}
+  .note{font-size:12px;color:#64748b;margin-top:6px}
+  footer{text-align:center;padding:32px;color:#334155;font-size:12px;border-top:1px solid #1e293b;margin-top:48px}
+</style>
+</head>
+<body>
+<div class="header">
+  <a href="index.html" class="back">← Back to Docs</a>
+  <span class="logo">Minifra Sentinel — API Contract</span>
+</div>
+<div class="main">
+  <h1>Customer API Contract</h1>
+  <div class="meta">Base path: <code>/api/sentinel/customer</code> · Version 3.0.1</div>
+  <p style="color:#94a3b8;font-size:14px;margin-bottom:32px">All endpoints require the <code>Authorization: Bearer &lt;token&gt;</code> header in production. The token is obtained from your identity provider (configured in Hub). In local/dev mode with no auth configured, the header is optional.</p>
+
+  <h2>Dashboard</h2>
+  <div class="endpoint"><div class="ep-header"><span class="method GET">GET</span><span class="ep-path">/customer/dashboard</span><span class="ep-desc">Summary stats for the portal home page</span></div><div class="ep-body"><pre>Response: { totalAgents, onlineAgents, offlineAgents, recordingActive,
+           alertsToday, tamperEvents, licenseStatus, vaultHealth,
+           storageUsageGb, storageCapacityGb, pendingExportApprovals,
+           recentActivity: [{time, event, type}],
+           health: { services: [{name, status, note}] } }</pre></div></div>
+
+  <h2>Agents</h2>
+  <div class="endpoint"><div class="ep-header"><span class="method GET">GET</span><span class="ep-path">/customer/agents</span><span class="ep-desc">List all agents</span></div><div class="ep-body"><pre>Response: [{ id, hostname, ip, os, version, status, recordingStatus,
+            tamperStatus, assignedPolicy, lastHeartbeat, department }]</pre></div></div>
+  <div class="endpoint"><div class="ep-header"><span class="method GET">GET</span><span class="ep-path">/customer/agents/:id</span><span class="ep-desc">Agent detail with logs and heartbeat history</span></div><div class="ep-body"><pre>Response: { ...agent, heartbeatHistory, logs, localStorageUsedGb, localStorageCapacityGb }</pre></div></div>
+  <div class="endpoint"><div class="ep-header"><span class="method POST">POST</span><span class="ep-path">/customer/agents/:id/push-config</span><span class="ep-desc">Push config to a specific agent</span></div><div class="ep-body"><pre>Response: { ok: true, message }</pre></div></div>
+
+  <h2>Recordings</h2>
+  <div class="endpoint"><div class="ep-header"><span class="method GET">GET</span><span class="ep-path">/customer/recordings</span><span class="ep-desc">List recordings</span></div><div class="ep-body"><pre>Response: [{ id, agentId, hostname, startTime, endTime, durationSec,
+            fileSizeBytes, status, chunkCount, chainStatus, fps, resolution }]</pre></div></div>
+  <div class="endpoint"><div class="ep-header"><span class="method GET">GET</span><span class="ep-path">/customer/recordings/:id/chunks</span><span class="ep-desc">Recording chunk list with hash chain</span></div><div class="ep-body"><pre>Response: [{ chunkId, fileName, fileSize, sha256Hash, previousHash, captureMethod, chainStatus }]</pre></div></div>
+
+  <h2>Alerts</h2>
+  <div class="endpoint"><div class="ep-header"><span class="method GET">GET</span><span class="ep-path">/customer/alerts</span><span class="ep-desc">All alerts</span></div><div class="ep-body"><pre>Response: [{ id, agentId, hostname, type, severity, status, message, createdAt, assignedTo }]</pre></div></div>
+  <div class="endpoint"><div class="ep-header"><span class="method POST">POST</span><span class="ep-path">/customer/alerts/:id/acknowledge</span></div><div class="ep-body"><pre>Response: { ok: true }</pre></div></div>
+  <div class="endpoint"><div class="ep-header"><span class="method POST">POST</span><span class="ep-path">/customer/alerts/:id/assign</span></div><div class="ep-body"><pre>Body: { assignedTo: "user@company.com" }  →  Response: { ok: true }</pre></div></div>
+  <div class="endpoint"><div class="ep-header"><span class="method POST">POST</span><span class="ep-path">/customer/alerts/:id/close</span></div><div class="ep-body"><pre>Response: { ok: true }</pre></div></div>
+
+  <h2>Policies</h2>
+  <div class="endpoint"><div class="ep-header"><span class="method GET">GET</span><span class="ep-path">/customer/policies</span></div><div class="ep-body"><pre>Response: [{ id, name, type, status, approvalStatus, assignedAgents, lastModified, modifiedBy }]</pre></div></div>
+  <div class="endpoint"><div class="ep-header"><span class="method POST">POST</span><span class="ep-path">/customer/policies</span><span class="ep-desc">Create policy</span></div><div class="ep-body"><pre>Body: { name, type, description }  →  Response: { id, ...policy }</pre></div></div>
+  <div class="endpoint"><div class="ep-header"><span class="method POST">POST</span><span class="ep-path">/customer/policies/:id/approve</span></div><div class="ep-body"><pre>Response: { ok: true }</pre></div></div>
+  <div class="endpoint"><div class="ep-header"><span class="method POST">POST</span><span class="ep-path">/customer/policies/:id/assign</span></div><div class="ep-body"><pre>Response: { ok: true }</pre></div></div>
+
+  <h2>Configuration</h2>
+  <div class="endpoint"><div class="ep-header"><span class="method GET">GET</span><span class="ep-path">/customer/configuration</span></div><div class="ep-body"><pre>Response: { customer, site, environment, hubUrl, hubIp, hubPort, vaultPath,
+           retentionDays, tlsEnabled, certPath, logLevel, fps, resolution,
+           captureMethod, watermarkEnabled, emailEnabled, smtpServer, ... }</pre></div></div>
+  <div class="endpoint"><div class="ep-header"><span class="method POST">POST</span><span class="ep-path">/customer/configuration</span><span class="ep-desc">Save configuration (any subset of fields)</span></div><div class="ep-body"><pre>Body: { module: "Hub", ...fields }  →  Response: { ok: true, message }</pre></div></div>
+  <div class="endpoint"><div class="ep-header"><span class="method POST">POST</span><span class="ep-path">/customer/configuration/validate</span></div><div class="ep-body"><pre>Response: { valid: true, checks: [{ name, status }] }</pre></div></div>
+
+  <h2>License</h2>
+  <div class="endpoint"><div class="ep-header"><span class="method GET">GET</span><span class="ep-path">/customer/license</span></div><div class="ep-body"><pre>Response: { id, customerId, siteId, productEdition, agentLimit, activatedAgents,
+           hubLimit, vaultLimit, startDate, expiryDate, gracePeriod,
+           hardwareBindingHash, status, features, activationHistory }</pre></div></div>
+  <div class="endpoint"><div class="ep-header"><span class="method POST">POST</span><span class="ep-path">/customer/license/import</span><span class="ep-desc">Import license file (multipart or base64 body)</span></div><div class="ep-body"><pre>Response: { ok: true, message }</pre></div></div>
+  <div class="endpoint"><div class="ep-header"><span class="method POST">POST</span><span class="ep-path">/customer/license/activate-offline</span></div><div class="ep-body"><pre>Body: { activationBlob: "base64..." }  →  Response: { ok: true, message }</pre></div></div>
+
+  <h2>Hardware Binding</h2>
+  <div class="endpoint"><div class="ep-header"><span class="method GET">GET</span><span class="ep-path">/customer/hardware-binding</span></div><div class="ep-body"><pre>Response: [{ id, hostname, machineId, bindingHash, status, boundAt }]</pre></div></div>
+  <div class="endpoint"><div class="ep-header"><span class="method POST">POST</span><span class="ep-path">/customer/hardware-binding/generate</span></div><div class="ep-body"><pre>Response: { machineId, hostname, bindingHash, status: "GENERATED" }</pre></div></div>
+
+  <h2>Exports &amp; Chain of Custody</h2>
+  <div class="endpoint"><div class="ep-header"><span class="method GET">GET</span><span class="ep-path">/customer/exports</span></div><div class="ep-body"><pre>Response: [{ id, caseId, reason, status, requestedBy, approvedBy, createdAt, downloadCount }]</pre></div></div>
+  <div class="endpoint"><div class="ep-header"><span class="method POST">POST</span><span class="ep-path">/customer/exports</span></div><div class="ep-body"><pre>Body: { caseId, reason, agentIds, dateFrom, dateTo }  →  Response: { id, ...export }</pre></div></div>
+  <div class="endpoint"><div class="ep-header"><span class="method POST">POST</span><span class="ep-path">/customer/exports/:id/approve</span></div><div class="ep-body"><pre>Body: { user: "reviewer@company.com" }
+Response: { ok: true }
+Error 400: "Self-approval not allowed" if same user as requester</pre></div></div>
+  <div class="endpoint"><div class="ep-header"><span class="method GET">GET</span><span class="ep-path">/customer/chain-of-custody/:exportId</span></div><div class="ep-body"><pre>Response: { exportId, createdBy, approvedBy, chunks: [{...hash chain}], manifest, status }</pre></div></div>
+  <div class="endpoint"><div class="ep-header"><span class="method POST">POST</span><span class="ep-path">/customer/chain-of-custody/:exportId/verify</span></div><div class="ep-body"><pre>Response: { verified: true, status: "VALID", verifiedAt, message }</pre></div></div>
+
+  <h2>Vault, Audit, Health, Packages, RBAC</h2>
+  <div class="endpoint"><div class="ep-header"><span class="method GET">GET</span><span class="ep-path">/customer/vault</span><span class="ep-desc">Evidence entries</span></div><div class="ep-body"><pre>Response: [{ id, agentId, hostname, recordingId, type, size, hash, status, createdAt }]</pre></div></div>
+  <div class="endpoint"><div class="ep-header"><span class="method GET">GET</span><span class="ep-path">/customer/audit</span><span class="ep-desc">Immutable audit log</span></div><div class="ep-body"><pre>Response: [{ id, timestamp, user, role, module, action, target, result, ip }]</pre></div></div>
+  <div class="endpoint"><div class="ep-header"><span class="method GET">GET</span><span class="ep-path">/customer/health</span></div><div class="ep-body"><pre>Response: { lastRun, services: [{ name, status, latencyMs, note }] }</pre></div></div>
+  <div class="endpoint"><div class="ep-header"><span class="method POST">POST</span><span class="ep-path">/customer/health/run</span><span class="ep-desc">Run health checks now</span></div><div class="ep-body"><pre>Response: { lastRun, services: [...updated results] }</pre></div></div>
+  <div class="endpoint"><div class="ep-header"><span class="method GET">GET</span><span class="ep-path">/customer/packages</span></div><div class="ep-body"><pre>Response: [{ id, name, type, version, releaseDate, checksum, status }]</pre></div></div>
+  <div class="endpoint"><div class="ep-header"><span class="method GET">GET</span><span class="ep-path">/customer/rbac</span></div><div class="ep-body"><pre>Response: [{ id, name, email, role, status, lastLogin }]</pre></div></div>
+  <div class="endpoint"><div class="ep-header"><span class="method POST">POST</span><span class="ep-path">/customer/rbac/users</span></div><div class="ep-body"><pre>Body: { name, email, role }  →  Response: { id, ...user }</pre></div></div>
+  <div class="endpoint"><div class="ep-header"><span class="method POST">POST</span><span class="ep-path">/customer/rbac/users/:id/disable</span></div><div class="ep-body"><pre>Response: { ok: true }</pre></div></div>
+</div>
+<footer>Minifra Sentinel v3.0.1 · &copy; 2026 Minifra Pte Ltd · <a href="index.html" style="color:#334155">Documentation Home</a></footer>
+</body></html>
