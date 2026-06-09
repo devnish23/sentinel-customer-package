@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Knowledge Base — Minifra Sentinel</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0f172a;color:#e2e8f0;line-height:1.6}
+  .header{background:#0f172a;border-bottom:1px solid #1e293b;padding:16px 40px;display:flex;align-items:center;gap:12px}
+  .back{color:#22d3ee;text-decoration:none;font-size:13px}.logo{color:#f1f5f9;font-weight:700;font-size:16px;margin-left:8px}
+  .main{max-width:900px;margin:0 auto;padding:48px 24px}
+  h1{font-size:28px;font-weight:800;color:#f1f5f9;margin-bottom:8px}
+  .meta{color:#475569;font-size:13px;margin-bottom:32px}
+  .search-bar{display:flex;gap:10px;margin-bottom:32px}
+  .search-bar input{flex:1;background:#1e293b;border:1px solid #334155;border-radius:8px;padding:10px 14px;color:#e2e8f0;font-size:14px;outline:none}
+  .search-bar input:focus{border-color:#22d3ee50}
+  .section{margin-bottom:40px}
+  .section-title{font-size:12px;text-transform:uppercase;letter-spacing:1.5px;color:#475569;font-weight:600;margin-bottom:12px;padding-bottom:6px;border-bottom:1px solid #1e293b}
+  .list{display:flex;flex-direction:column;gap:8px}
+  .article{background:#1e293b;border:1px solid #334155;border-radius:8px;padding:14px 18px;text-decoration:none;display:flex;align-items:center;gap:12px;transition:border-color .15s}
+  .article:hover{border-color:#22d3ee40}
+  .article-id{font-family:monospace;font-size:11px;color:#475569;min-width:52px}
+  .article-title{color:#e2e8f0;font-size:14px;flex:1}
+  .article-cat{font-size:11px;color:#22d3ee;min-width:110px;text-align:right}
+  .arrow{color:#475569;font-size:12px}
+  footer{text-align:center;padding:32px;color:#334155;font-size:12px;border-top:1px solid #1e293b;margin-top:48px}
+</style>
+</head>
+<body>
+<div class="header">
+  <a href="../index.html" class="back">← Back to Docs</a>
+  <span class="logo">Minifra Sentinel — Knowledge Base</span>
+</div>
+<div class="main">
+  <h1>Knowledge Base</h1>
+  <div class="meta">14 articles · Version 3.0.1</div>
+  <div class="search-bar">
+    <input id="search" placeholder="Search articles…" oninput="filterArticles(this.value)" />
+  </div>
+
+  <div id="articles">
+  <div class="section"><div class="section-title">Installation &amp; Setup</div><div class="list">
+    <a href="articles/kb-001.html" class="article" data-text="hub installation guide windows server setup install"><span class="article-id">KB-001</span><span class="article-title">Minifra Sentinel Hub — Installation Guide (Windows Server)</span><span class="article-cat">Installation</span><span class="arrow">→</span></a>
+    <a href="articles/kb-002.html" class="article" data-text="agent deployment guide install deploy"><span class="article-id">KB-002</span><span class="article-title">Minifra Sentinel Agent — Deployment Guide</span><span class="article-cat">Installation</span><span class="arrow">→</span></a>
+  </div></div>
+  <div class="section"><div class="section-title">License Management</div><div class="list">
+    <a href="articles/kb-003.html" class="article" data-text="offline license activation airgap challenge response"><span class="article-id">KB-003</span><span class="article-title">Activating a License Offline (Air-Gapped Environments)</span><span class="article-cat">License</span><span class="arrow">→</span></a>
+    <a href="articles/kb-008.html" class="article" data-text="hardware binding migration new server re-bind"><span class="article-id">KB-008</span><span class="article-title">Hardware Binding — Migrating to a New Server</span><span class="article-cat">License</span><span class="arrow">→</span></a>
+  </div></div>
+  <div class="section"><div class="section-title">Agents &amp; Recording</div><div class="list">
+    <a href="articles/kb-004.html" class="article" data-text="agent offline troubleshooting heartbeat checklist"><span class="article-id">KB-004</span><span class="article-title">Agent Offline — Troubleshooting Checklist</span><span class="article-cat">Troubleshooting</span><span class="arrow">→</span></a>
+    <a href="articles/kb-005.html" class="article" data-text="recording engine capture dxgi desktop duplication opencv windows graphics api"><span class="article-id">KB-005</span><span class="article-title">Recording Engine — Capture Methods Explained</span><span class="article-cat">Recording</span><span class="arrow">→</span></a>
+    <a href="articles/kb-006.html" class="article" data-text="k7 antivirus blocking exclusion false positive malwarebytes"><span class="article-id">KB-006</span><span class="article-title">K7 / Antivirus Blocking Minifra Agent</span><span class="article-cat">Troubleshooting</span><span class="arrow">→</span></a>
+  </div></div>
+  <div class="section"><div class="section-title">Export &amp; Evidence</div><div class="list">
+    <a href="articles/kb-007.html" class="article" data-text="export workflow evidence approval chain of custody"><span class="article-id">KB-007</span><span class="article-title">Export Workflow — End-to-End Guide</span><span class="article-cat">Evidence</span><span class="arrow">→</span></a>
+    <a href="articles/kb-013.html" class="article" data-text="two person export approval 4-eyes compliance rbac self-approval"><span class="article-id">KB-013</span><span class="article-title">Setting Up Two-Person Export Approval (4-Eyes Control)</span><span class="article-cat">Compliance</span><span class="arrow">→</span></a>
+  </div></div>
+  <div class="section"><div class="section-title">Troubleshooting</div><div class="list">
+    <a href="articles/kb-009.html" class="article" data-text="hub fails start reboot windows service startup"><span class="article-id">KB-009</span><span class="article-title">Hub Fails to Start After Windows Reboot</span><span class="article-cat">Troubleshooting</span><span class="arrow">→</span></a>
+    <a href="articles/kb-010.html" class="article" data-text="port firewall configuration network connectivity tcp"><span class="article-id">KB-010</span><span class="article-title">Port / Firewall Configuration for Minifra Sentinel</span><span class="article-cat">Network</span><span class="arrow">→</span></a>
+  </div></div>
+  <div class="section"><div class="section-title">Upgrade &amp; Rollback</div><div class="list">
+    <a href="articles/kb-011.html" class="article" data-text="upgrade 3.0.1 update migration rollback version"><span class="article-id">KB-011</span><span class="article-title">Upgrading Minifra Sentinel to v3.0.1</span><span class="article-cat">Upgrade</span><span class="arrow">→</span></a>
+  </div></div>
+  <div class="section"><div class="section-title">Security &amp; Compliance</div><div class="list">
+    <a href="articles/kb-012.html" class="article" data-text="tamper detection security alert integrity suspected"><span class="article-id">KB-012</span><span class="article-title">Tamper Detection — What Triggers an Alert</span><span class="article-cat">Security</span><span class="arrow">→</span></a>
+  </div></div>
+  <div class="section"><div class="section-title">Support</div><div class="list">
+    <a href="articles/kb-014.html" class="article" data-text="support bundle diagnostics logs collect submit"><span class="article-id">KB-014</span><span class="article-title">Collecting and Submitting a Support Bundle</span><span class="article-cat">Support</span><span class="arrow">→</span></a>
+  </div></div>
+  </div>
+</div>
+<footer>Minifra Sentinel v3.0.1 · &copy; 2026 Minifra Pte Ltd · <a href="../index.html" style="color:#334155">Documentation Home</a></footer>
+<script>
+function filterArticles(q) {
+  q = q.toLowerCase();
+  document.querySelectorAll('.article').forEach(a => {
+    const text = (a.dataset.text + ' ' + a.querySelector('.article-title').textContent).toLowerCase();
+    a.style.display = text.includes(q) ? '' : 'none';
+  });
+  document.querySelectorAll('.section').forEach(s => {
+    const visible = [...s.querySelectorAll('.article')].some(a => a.style.display !== 'none');
+    s.style.display = visible ? '' : 'none';
+  });
+}
+</script>
+</body></html>
