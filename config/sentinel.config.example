@@ -1,0 +1,28 @@
+# Minifra Sentinel Customer Portal — Configuration
+# Copy this file to sentinel.config and edit values before running setup.bat / setup.sh
+
+# Full URL of your Minifra Sentinel Hub API including /api/sentinel path
+# Examples:
+#   http://192.168.1.10:8080/api/sentinel          (HTTP, internal network)
+#   https://sentinel.yourcompany.com/api/sentinel   (HTTPS, custom domain)
+#   https://192.168.1.10:8443/api/sentinel          (HTTPS, self-signed cert)
+API_BASE_URL=http://localhost:3001/api/sentinel
+
+# Port the Customer Portal web server will listen on
+# Change if port 3000 is already in use
+PORTAL_PORT=3000
+
+# Your company name — displayed in the portal header
+COMPANY_NAME=My Organisation
+
+# Install as OS service (true = auto-start on boot)
+# Windows: registers as Windows Scheduled Task
+# Linux: registers as systemd service (requires root)
+# macOS: starts with nohup as fallback
+INSTALL_AS_SERVICE=true
+
+# ─── Advanced / optional ───────────────────────────────────────
+# If your Hub uses a self-signed TLS certificate and you get SSL errors,
+# set NODE_TLS_REJECT_UNAUTHORIZED=0 in the environment before running setup.
+# WARN: only do this in isolated/internal networks.
+# NODE_TLS_REJECT_UNAUTHORIZED=0
