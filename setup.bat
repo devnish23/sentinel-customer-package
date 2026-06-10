@@ -1,4 +1,6 @@
 @echo off
+:: ── Fix working directory when run as Administrator ───────────────
+cd /d "%~dp0"
 setlocal EnableDelayedExpansion
 title Minifra Sentinel Customer Portal — Windows Setup v3.0.1
 color 0A
@@ -82,8 +84,9 @@ set /p INSTALL_SVC="  Install as Windows Service (auto-start on boot)? (Y/n): "
 if "!INSTALL_SVC!"=="" set INSTALL_SVC=y
 if /i "!INSTALL_SVC!"=="n" (set INSTALL_AS_SERVICE=false) else (set INSTALL_AS_SERVICE=true)
 
-:: Save config
+:: Ensure required directories exist
 if not exist "config" mkdir config
+if not exist "scripts" mkdir scripts
 (
     echo API_BASE_URL=!API_BASE_URL!
     echo PORTAL_PORT=!PORTAL_PORT!
